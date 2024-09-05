@@ -4,7 +4,7 @@
 
 <!-- Replace 'screenshot.png' with the path to your actual image file -->
 <p align="center">
-  <img src="screenshot.gif" alt="Screenshot of the AES-GCM Encryption/Decryption Tool" style="max-width:100%; height:auto;">
+  <img src="Preview.gif" alt="Screenshot of the AES-GCM Encryption/Decryption Tool" style="max-width:100%; height:auto;">
 </p>
 
 <h2>Features</h2>
