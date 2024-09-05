@@ -1,0 +1,102 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  mormot.crypt.secure, mormot.crypt.core, Vcl.StdCtrls; // Required for cryptographic classes
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    procedure SimpleAesGcmExample;
+  public
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  SimpleAesGcmExample;
+end;
+
+procedure TForm1.SimpleAesGcmExample;
+var
+  AES: TAesGcmEngine;
+  Key: array[0..31] of Byte;       // 256-bit key (32 bytes)
+  Nonce: array[0..11] of Byte;     // 96-bit nonce (12 bytes)
+  PlainText, CipherText: TBytes;
+  Tag: TAesBlock;                  // Tag for authentication (16 bytes)
+  DecryptedText: TBytes;
+  Success: Boolean;
+begin
+  // Define the plaintext message
+  PlainText := TEncoding.UTF8.GetBytes('Hello, World!');
+
+  // Generate a random AES-GCM key (256-bit key)
+  TAesPrng.Main.Fill(@Key, SizeOf(Key)); // Securely generate a random key
+
+  // Generate a random nonce (12 bytes is standard for AES-GCM)
+  TAesPrng.Main.Fill(@Nonce, SizeOf(Nonce));
+
+  // Initialize the AES-GCM object with the key
+  AES.Init(Key, 256);   // Initialize with the 256-bit key
+  try
+    // Set nonce for encryption
+    AES.Reset(@Nonce, SizeOf(Nonce));
+
+    // Allocate space for the ciphertext
+    SetLength(CipherText, Length(PlainText) + 16); // +16 bytes for potential tag
+
+    // Encrypt the plaintext
+    Success := AES.Encrypt(@PlainText[0], @CipherText[0], Length(PlainText));
+    if not Success then
+    begin
+      ShowMessage('Encryption failed');
+      Exit;
+    end
+    else
+    begin
+    ShowMessage('Encryption Success Here is your encrypted shit: ' + stringof(CipherText));
+    end;
+
+    // Finalize and get the authentication tag
+    Success := AES.Final(Tag);
+    if not Success then
+    begin
+      ShowMessage('Tag generation failed');
+      Exit;
+    end;
+
+    // Decrypt the ciphertext
+    AES.Reset(@Nonce, SizeOf(Nonce));  // Reset nonce for decryption
+    SetLength(DecryptedText, Length(PlainText)); // Allocate space for decrypted text
+
+    // Perform decryption and verify authentication tag
+    AES.Init(Key, 256);
+    // Set nonce for encryption
+    AES.Reset(@Nonce, SizeOf(Nonce));
+
+    // Allocate space for the ciphertext
+    SetLength(CipherText, Length(PlainText) + 16);
+    // +16 bytes for potential tag
+    AES.Decrypt(CipherText, DecryptedText, Length(PlainText), @Tag, SizeOf(Tag));
+
+
+    // Show the results
+    ShowMessage('Decryption successful: ' + TEncoding.UTF8.GetString(DecryptedText));
+  finally
+    AES.Done;  // Flush AES context to avoid forensic issues
+  end;
+end;
+
+end.
+

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/07/25 19:25:00.000.326,=C:\Users\BitmasterXor\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/09/05 11:42:47.000.714,=C:\Users\BitmasterXor\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/09/05 11:46:56.000.306,C:\Users\BitmasterXor\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\BitmasterXor\Desktop\aesgcm example mormot\Unit1.dfm</Transaction>
+    <Transaction>2024/09/05 11:46:56.000.306,C:\Users\BitmasterXor\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\BitmasterXor\Desktop\aesgcm example mormot\Unit1.pas</Transaction>
+    <Transaction>2024/09/05 11:47:01.000.060,C:\Users\BitmasterXor\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\BitmasterXor\Desktop\aesgcm example mormot\aesgcmexample.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
