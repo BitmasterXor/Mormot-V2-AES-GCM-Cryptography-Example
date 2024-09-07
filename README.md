@@ -33,3 +33,9 @@
 
 <h2>License</h2>
 <p>This project is provided "as is" without warranty. Use it at your own risk.</p>
+
+## 📧 Contact
+
+Discord: BitmasterXor
+
+<p align="center">Made with ❤️ by: BitmasterXor, using Delphi RAD Studio</p>
